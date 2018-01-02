@@ -53,26 +53,15 @@ You'll notice that there are two different contracts in this code: _"mortal"_ an
 
 The inherited characteristic _"mortal"_ simply means that the greeter contract can be killed by its owner, to clean up the blockchain and recover funds locked into it when the contract is no longer needed. Contracts in ethereum are, by default, immortal and have no owner, meaning that once deployed the author has no special privileges anymore. Consider this before deploying.
 
-### The Solc Compiler
+### Pre-deployment
 
-Before you are able to Deploy it though, you'll need two things: the compiled code, and the Application Binary Interface, which is a JavaScript Object that defines how to interact with the contract.
+Before you are able to deploy your contract, you'll need two things: the compiled code, and the Application Binary Interface, which is a JavaScript Object that defines how to interact with the contract.
 
-The first you can get by using a compiler. You should have a solidity compiler built in on your geth console. To test it, use this command:
-
-    eth.getCompilers()
-
-If you have it installed, it should output something like this:
-
-    ['Solidity' ]
-
-If you do not get Solidity above, then you need to install it. You can find [instructions for installing Solidity here](http://solidity.readthedocs.io/en/develop/installing-solidity.html).
-
-
+Assuming you have started the geth console (see [Installing the Ethereum CLI](https://ethereum.org/cli)), in a separate terminal window, use geth attach to enter the console session. 
 
 #### Compiling your contract 
 
-
-Now you have the compiler installed, you need now reformat your contract by removing line-breaks so it fits into a string variable [(there are some online tools that will do this)](https://www.textfixer.com/tools/remove-line-breaks.php):
+You now need to reformat your contract by removing line-breaks so it fits into a string variable [(there are some online tools that will do this)](https://www.textfixer.com/tools/remove-line-breaks.php):
 
     var greeterSource = 'contract mortal { address owner; function mortal() { owner = msg.sender; } function kill() { if (msg.sender == owner) selfdestruct(owner); } } contract greeter is mortal { string greeting; function greeter(string _greeting) public { greeting = _greeting; } function greet() constant returns (string) { return greeting; } }'
 
